@@ -1,12 +1,15 @@
 package ru.yandex.practicum.filmorate.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
 import ru.yandex.practicum.filmorate.model.User;
 
+import java.util.List;
+
 public interface UserService {
-    ResponseEntity<?> addUser(User user);
+    User addUser(User user);
 
-    ResponseEntity<?> updateUser(User user);
+    User updateUser(User user) throws JsonProcessingException;
 
-    ResponseEntity<?> getUsers(String id);
+    List<User> getUsers();
 }

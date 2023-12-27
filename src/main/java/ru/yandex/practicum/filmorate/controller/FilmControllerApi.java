@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Validated
-@RestController("/film")
 public interface FilmControllerApi {
 
     @PostMapping()
@@ -23,6 +23,9 @@ public interface FilmControllerApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     content = @Content(schema = @Schema(implementation = Film.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Такой фильм уже существует",
+                    content = @Content(schema = @Schema())),
             @ApiResponse(responseCode = "500",
                     description = "Произошла внутреняя ошибка",
                     content = @Content(schema = @Schema()))
@@ -49,16 +52,13 @@ public interface FilmControllerApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     content = @Content(schema = @Schema(implementation = Film.class))),
-            @ApiResponse(responseCode = "400",
-                    description = "Не найден фильм по Id",
-                    content = @Content(schema = @Schema())),
             @ApiResponse(responseCode = "500",
                     description = "Произошла внутреняя ошибка",
                     content = @Content(schema = @Schema()))
     })
-    @Operation(description = "Получить существующий фильм")
-    @Tag(name = "3. Получение существующего фильма")
-    Film getFilms(@PathVariable Integer id) throws JsonProcessingException;
+    @Operation(description = "Получить список всех фильмов")
+    @Tag(name = "3. Получение списка всех фильмов")
+    List<Film> getFilms() throws JsonProcessingException;
 
 
 }

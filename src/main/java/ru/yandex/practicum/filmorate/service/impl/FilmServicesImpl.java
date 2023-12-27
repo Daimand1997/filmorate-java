@@ -9,36 +9,39 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Data
 @Component
 public class FilmServicesImpl implements FilmService {
 
-    private HashMap<Integer, Film> films;
+    private List<Film> films;
     private static Integer id;
 
     @Override
     public Film addFilm(Film film) {
-        films.put(++id, film);
-        return films.get(id);
+        if(films.contains(film)){
+            throw new ValidationException("The film was created earlier");
+        }
+        film.setId(++id);
+        films.add(film);
+        return film;
     }
 
     @Override
     public Film updateFilm(Film film) {
-        if(!films.containsValue(film)) {
+        if(!films.contains(film)) {
             throw new ValidationException("Not found film from update by");
         }
-        films.put(film.getId(), film);
-        return films.get(film.getId());
-
+        // TODO переделать!!!
+        films.add(film.getId(), film);
+        return film;
     }
 
     @Override
-    public Film getFilms(Integer id) {
-        if(!films.containsKey(id)) {
-            throw new ValidationException("Not found film by {}" + id);
-        }
-        return films.get(id);
+    public List<Film> getFilms() {
+        return films;
     }
+
 }

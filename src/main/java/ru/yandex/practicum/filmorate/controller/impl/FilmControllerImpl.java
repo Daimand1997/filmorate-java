@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.controller.FilmControllerApi;
@@ -11,8 +12,10 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 
 import javax.validation.Valid;
+import java.util.List;
 
-@RestController
+@RestController("/film")
+@RequestMapping(value = "/film", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class FilmControllerImpl implements FilmControllerApi {
 
@@ -37,15 +40,15 @@ public class FilmControllerImpl implements FilmControllerApi {
     public Film updateFilm(@RequestBody Film film) throws JsonProcessingException {
         log.info("Start update film. " + objectMapper.writeValueAsString(film));
         Film responseFilm = filmServices.updateFilm(film);
-        log.info("Finish update film. " + objectMapper.writeValueAsString(film));
+        log.info("Finish update film by " + objectMapper.writeValueAsString(responseFilm));
         return responseFilm;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public Film getFilms(@PathVariable Integer id) throws JsonProcessingException {
-        log.info("Start get film. Id = {}", id);
-        Film responseFilm = filmServices.getFilms(id);
+    public List<Film> getFilms() throws JsonProcessingException {
+        log.info("Start get films");
+        List<Film> responseFilm = filmServices.getFilms();
         log.info("Finish get film. Response: " + objectMapper.writeValueAsString(responseFilm));
         return responseFilm;
     }

@@ -1,27 +1,49 @@
 package ru.yandex.practicum.filmorate.service.impl;
 
-import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Component;
+import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.util.List;
 
+@Component
 public class UserServicesImpl implements UserService {
 
-    List<User> users;
+    private List<User> users;
+    private static Integer id;
 
-    @Override
-    public ResponseEntity<?> addUser(User user) {
-        return null;
+    private final ObjectMapper objectMapper;
+
+    public UserServicesImpl(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
     @Override
-    public ResponseEntity<?> updateUser(User user) {
-        return null;
+    public User addUser(User user) {
+        if(users.contains(user)){
+            throw new ValidationException("The user was created earlier");
+        }
+        user.setId(++id);
+        users.add(user);
+        return user;
     }
 
     @Override
-    public ResponseEntity<?> getUsers(String id) {
-        return null;
+    public User updateUser(User user) throws JsonProcessingException {
+        if(!users.contains(user)) {
+            throw new ValidationException("Not found user from update by "
+                    + objectMapper.writeValueAsString(user));
+        }
+        // TODO ПЕРЕДЕЛАТЬ!!!
+        users.add(user.getId(), user);
+        return user;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return users;
     }
 }
