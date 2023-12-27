@@ -1,4 +1,4 @@
 package ru.yandex.practicum.filmorate.controller;
 
-public class UserControllerApi {
+public interface UserControllerApi {
 }

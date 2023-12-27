@@ -5,9 +5,9 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 public interface FilmService {
 
-    ResponseEntity<?> addFilm(Film film);
+    Film addFilm(Film film);
 
-    ResponseEntity<?> updateFilm(Film film);
+    Film updateFilm(Film film);
 
     Film getFilms(Integer id);
 }
