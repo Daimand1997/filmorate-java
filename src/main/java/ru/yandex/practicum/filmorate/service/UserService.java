@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.http.ResponseEntity;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.List;
