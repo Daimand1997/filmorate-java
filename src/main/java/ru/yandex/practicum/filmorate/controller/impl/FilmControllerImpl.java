@@ -13,7 +13,6 @@ import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/film", method = RequestMethod.GET)
 @Slf4j
 public class FilmControllerImpl implements FilmControllerApi {
 
@@ -25,8 +24,7 @@ public class FilmControllerImpl implements FilmControllerApi {
         this.objectMapper = objectMapper;
     }
 
-    @PostMapping()
-    @ResponseStatus(HttpStatus.OK)
+
     public Film addFilm(@RequestBody @Valid Film film) throws JsonProcessingException {
         log.info("Start create film. " + objectMapper.writeValueAsString(film));
         Film responseFilm = filmServices.addFilm(film);
@@ -46,7 +44,7 @@ public class FilmControllerImpl implements FilmControllerApi {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Film getFilms(@PathVariable Integer id) throws JsonProcessingException {
-        log.info("Start get film. ID = {}", id);
+        log.info("Start get film. Id = {}", id);
         Film responseFilm = filmServices.getFilms(id);
         log.info("Finish get film. Response: " + objectMapper.writeValueAsString(responseFilm));
         return responseFilm;

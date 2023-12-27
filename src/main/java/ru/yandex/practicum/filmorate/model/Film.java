@@ -12,6 +12,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Objects;
+
 /**
  * Film.
  */
@@ -19,7 +21,6 @@ import java.time.LocalDate;
 @Data
 @Validated
 public class Film {
-
     @Id
     private Integer id;
 
@@ -35,5 +36,18 @@ public class Film {
 
     @Min(value = 0, message = "Продолжительность фильма должна быть положительной")
     private Duration duration;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Film film = (Film) o;
+        return Objects.equals(id, film.id) && Objects.equals(name, film.name) && Objects.equals(description, film.description) && Objects.equals(releaseDate, film.releaseDate) && Objects.equals(duration, film.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, releaseDate, duration);
+    }
 
 }

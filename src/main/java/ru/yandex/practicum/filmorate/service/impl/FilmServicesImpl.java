@@ -20,10 +20,8 @@ public class FilmServicesImpl implements FilmService {
 
     @Override
     public Film addFilm(Film film) {
-        if(!films.containsValue(film)) {
-            films.put(++id, film);
-        }
-        return null;
+        films.put(++id, film);
+        return films.get(id);
     }
 
     @Override
