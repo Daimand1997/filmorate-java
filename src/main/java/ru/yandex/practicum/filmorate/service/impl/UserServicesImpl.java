@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -10,6 +11,7 @@ import ru.yandex.practicum.filmorate.service.UserService;
 import java.util.List;
 
 @Component
+@Data
 public class UserServicesImpl implements UserService {
 
     private List<User> users;
@@ -27,18 +29,28 @@ public class UserServicesImpl implements UserService {
             throw new ValidationException("The user was created earlier");
         }
         user.setId(++id);
+        if(user.getName() == null || user.getName().isEmpty()) {
+            user.setName(user.getLogin());
+        }
         users.add(user);
         return user;
     }
 
     @Override
     public User updateUser(User user) throws JsonProcessingException {
-        if(!users.contains(user)) {
+        if(users.stream().filter(g-> g.getId().equals(user.getId())).findFirst().isEmpty()) {
             throw new ValidationException("Not found user from update by "
                     + objectMapper.writeValueAsString(user));
         }
-        // TODO ПЕРЕДЕЛАТЬ!!!
-        users.add(user.getId(), user);
+        if(user.getName() == null || user.getName().isEmpty()) {
+            user.setName(user.getLogin());
+        }
+        for(int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equals(user.getId())) {
+                users.set(i, user);
+                break;
+            }
+        }
         return user;
     }
 

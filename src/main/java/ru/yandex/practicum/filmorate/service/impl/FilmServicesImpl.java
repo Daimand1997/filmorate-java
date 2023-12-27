@@ -1,14 +1,14 @@
 package ru.yandex.practicum.filmorate.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -18,10 +18,16 @@ public class FilmServicesImpl implements FilmService {
 
     private List<Film> films;
     private static Integer id;
+    private final ObjectMapper objectMapper;
+
+    public FilmServicesImpl(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public Film addFilm(Film film) {
-        if(films.contains(film)){
+        if(films.stream()
+                .anyMatch(g-> g.getId().equals(film.getId()))) {
             throw new ValidationException("The film was created earlier");
         }
         film.setId(++id);
@@ -30,12 +36,17 @@ public class FilmServicesImpl implements FilmService {
     }
 
     @Override
-    public Film updateFilm(Film film) {
-        if(!films.contains(film)) {
-            throw new ValidationException("Not found film from update by");
+    public Film updateFilm(Film film) throws JsonProcessingException {
+        if(films.stream().filter(g-> g.getId().equals(film.getId())).findFirst().isEmpty()) {
+            throw new ValidationException("Not found film from update by "
+                    + objectMapper.writeValueAsString(film));
         }
-        // TODO переделать!!!
-        films.add(film.getId(), film);
+        for(int i = 0; i < films.size(); i++) {
+            if (films.get(i).getId().equals(film.getId())) {
+                films.set(i, film);
+                break;
+            }
+        }
         return film;
     }
 

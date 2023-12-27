@@ -34,10 +34,6 @@ public class UserControllerImpl implements UserControllerApi {
         log.info("Start create user. " + objectMapper.writeValueAsString(user));
         User responseUser = userServices.addUser(user);
         log.info("Finish create user. " + objectMapper.writeValueAsString(user));
-        // TODO перенести в создание
-        if(user.getName() == null || user.getName().isEmpty()) {
-            user.setName(user.getLogin());
-        }
         return user;
     }
 
@@ -46,10 +42,6 @@ public class UserControllerImpl implements UserControllerApi {
         log.info("Start update user. " + objectMapper.writeValueAsString(user));
         User responseUser = userServices.updateUser(user);
         log.info("Finish update user. " + objectMapper.writeValueAsString(user));
-        // TODO перенести в создание
-        if(user.getName() == null || user.getName().isEmpty()) {
-            user.setName(user.getLogin());
-        }
         return user;
     }
 
