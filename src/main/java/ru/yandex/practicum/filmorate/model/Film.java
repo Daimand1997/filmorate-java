@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
