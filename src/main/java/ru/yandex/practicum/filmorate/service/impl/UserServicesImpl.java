@@ -27,9 +27,7 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        if(users.stream().anyMatch(g-> g.equals(user))) {
-            throw new ValidationException("The user was created earlier");
-        }
+        if(users.stream().anyMatch(g-> g.equals(user))) throw new ValidationException("The user was created earlier");
         user.setId(++id);
         if(user.getName() == null || user.getName().isEmpty()) {
             user.setName(user.getLogin());
@@ -41,13 +39,9 @@ public class UserServicesImpl implements UserService {
     @Override
     public User updateUser(User user) throws JsonProcessingException {
         if(users.stream().filter(g-> g.getId()
-                .equals(user.getId())).findFirst().isEmpty()) {
-            throw new ValidationException("Not found user from update by "
+                .equals(user.getId())).findFirst().isEmpty()) throw new ValidationException("Not found user from update by "
                     + objectMapper.writeValueAsString(user));
-        }
-        if(user.getName() == null || user.getName().isEmpty()) {
-            user.setName(user.getLogin());
-        }
+        if(user.getName() == null || user.getName().isEmpty()) user.setName(user.getLogin());
         for(int i = 0; i < users.size(); i++) {
             if (users.get(i).getId().equals(user.getId())) {
                 users.set(i, user);

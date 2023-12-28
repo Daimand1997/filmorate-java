@@ -28,9 +28,7 @@ public class FilmServicesImpl implements FilmService {
 
     @Override
     public Film addFilm(Film film) {
-        if(films.stream().anyMatch(g-> g.equals(film))) {
-            throw new ValidationException("The film was created earlier");
-        }
+        if(films.stream().anyMatch(g-> g.equals(film))) throw new ValidationException("The film was created earlier");
         film.setId(++id);
         films.add(film);
         return film;
@@ -38,10 +36,9 @@ public class FilmServicesImpl implements FilmService {
 
     @Override
     public Film updateFilm(Film film) throws JsonProcessingException {
-        if(films.stream().filter(g-> g.getId().equals(film.getId())).findFirst().isEmpty()) {
+        if(films.stream().filter(g-> g.getId().equals(film.getId())).findFirst().isEmpty())
             throw new ValidationException("Not found film from update by "
                     + objectMapper.writeValueAsString(film));
-        }
         for(int i = 0; i < films.size(); i++) {
             if (films.get(i).getId().equals(film.getId())) {
                 films.set(i, film);
