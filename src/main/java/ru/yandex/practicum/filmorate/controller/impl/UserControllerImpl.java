@@ -15,8 +15,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RestController("/user")
-@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController("/users")
+@RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Component
 @Slf4j
 @Validated

@@ -14,8 +14,8 @@ import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController("/film")
-@RequestMapping(value = "/film", produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController("/films")
+@RequestMapping(value = "/films", produces = MediaType.APPLICATION_JSON_VALUE)
 @Component
 @Slf4j
 public class FilmControllerImpl implements FilmControllerApi {
