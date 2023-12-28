@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @Configuration
+@ComponentScan
 @Slf4j
 public class FilmorateApplication {
 	public static void main(String[] args) {
