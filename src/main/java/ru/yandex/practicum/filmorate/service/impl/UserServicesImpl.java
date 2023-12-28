@@ -8,14 +8,16 @@ import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
 @Data
 public class UserServicesImpl implements UserService {
 
-    private List<User> users;
-    private static Integer id;
+    private List<User> users = new ArrayList<>();
+    private static Integer id = 0;
 
     private final ObjectMapper objectMapper;
 
@@ -25,7 +27,7 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        if(users.contains(user)){
+        if(users.stream().anyMatch(g-> g.equals(user))) {
             throw new ValidationException("The user was created earlier");
         }
         user.setId(++id);
@@ -38,7 +40,8 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public User updateUser(User user) throws JsonProcessingException {
-        if(users.stream().filter(g-> g.getId().equals(user.getId())).findFirst().isEmpty()) {
+        if(users.stream().filter(g-> g.getId()
+                .equals(user.getId())).findFirst().isEmpty()) {
             throw new ValidationException("Not found user from update by "
                     + objectMapper.writeValueAsString(user));
         }
@@ -56,6 +59,6 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public List<User> getUsers() {
-        return users;
+        return users != null ? users : Collections.emptyList();
     }
 }

@@ -9,6 +9,8 @@ import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -16,8 +18,8 @@ import java.util.List;
 @Component
 public class FilmServicesImpl implements FilmService {
 
-    private List<Film> films;
-    private static Integer id;
+    private List<Film> films = new ArrayList<>();
+    private static Integer id = 0;
     private final ObjectMapper objectMapper;
 
     public FilmServicesImpl(ObjectMapper objectMapper) {
@@ -26,8 +28,7 @@ public class FilmServicesImpl implements FilmService {
 
     @Override
     public Film addFilm(Film film) {
-        if(films.stream()
-                .anyMatch(g-> g.getId().equals(film.getId()))) {
+        if(films.stream().anyMatch(g-> g.equals(film))) {
             throw new ValidationException("The film was created earlier");
         }
         film.setId(++id);
@@ -52,7 +53,7 @@ public class FilmServicesImpl implements FilmService {
 
     @Override
     public List<Film> getFilms() {
-        return films;
+        return films != null ? films : Collections.emptyList();
     }
 
 }

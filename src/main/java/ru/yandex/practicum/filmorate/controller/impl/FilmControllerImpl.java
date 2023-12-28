@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.controller.FilmControllerApi;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController("/film")
 @RequestMapping(value = "/film", produces = MediaType.APPLICATION_JSON_VALUE)
+@Component
 @Slf4j
 public class FilmControllerImpl implements FilmControllerApi {
 

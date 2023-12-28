@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
@@ -10,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -31,11 +31,11 @@ public class Film {
     private String description;
 
     @NotBlank(message = "Релизная дата формата yyyy-mm-dd не может быть пустой")
-    @JsonSerialize(using = DateFutureDateSerialize.class)
+    @JsonSerialize(converter = DateFutureDateSerialize.class)
     private LocalDate releaseDate;
 
     @Min(value = 0, message = "Продолжительность фильма должна быть положительной")
-    private Duration duration;
+    private Integer duration;
 
     @Override
     public boolean equals(Object o) {
