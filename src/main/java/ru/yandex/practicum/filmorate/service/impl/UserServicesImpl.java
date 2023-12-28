@@ -16,10 +16,9 @@ import java.util.List;
 @Data
 public class UserServicesImpl implements UserService {
 
-    private List<User> users = new ArrayList<>();
     private static Integer id = 0;
-
     private final ObjectMapper objectMapper;
+    private List<User> users = new ArrayList<>();
 
     public UserServicesImpl(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -27,9 +26,9 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        if(users.stream().anyMatch(g-> g.equals(user))) throw new ValidationException("The user was created earlier");
+        if (users.stream().anyMatch(g -> g.equals(user))) throw new ValidationException("The user was created earlier");
         user.setId(++id);
-        if(user.getName() == null || user.getName().isEmpty()) {
+        if (user.getName() == null || user.getName().isEmpty()) {
             user.setName(user.getLogin());
         }
         users.add(user);
@@ -38,11 +37,12 @@ public class UserServicesImpl implements UserService {
 
     @Override
     public User updateUser(User user) throws JsonProcessingException {
-        if(users.stream().filter(g-> g.getId()
-                .equals(user.getId())).findFirst().isEmpty()) throw new ValidationException("Not found user from update by "
+        if (users.stream().filter(g -> g.getId()
+                .equals(user.getId())).findFirst().isEmpty())
+            throw new ValidationException("Not found user from update by "
                     + objectMapper.writeValueAsString(user));
-        if(user.getName() == null || user.getName().isEmpty()) user.setName(user.getLogin());
-        for(int i = 0; i < users.size(); i++) {
+        if (user.getName() == null || user.getName().isEmpty()) user.setName(user.getLogin());
+        for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getId().equals(user.getId())) {
                 users.set(i, user);
                 break;
