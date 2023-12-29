@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import ru.yandex.practicum.filmorate.validations.DateFutureDateSerialize;
 
 import javax.persistence.Id;

@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.controller.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import ru.yandex.practicum.filmorate.controller.UserControllerApi;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.impl.UserServicesImpl;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController("/users")

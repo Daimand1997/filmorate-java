@@ -11,7 +11,6 @@ import ru.yandex.practicum.filmorate.controller.FilmControllerApi;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController("/films")
