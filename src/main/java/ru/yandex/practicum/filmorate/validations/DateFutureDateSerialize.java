@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.validations;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
-import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
