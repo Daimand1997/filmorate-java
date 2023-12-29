@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
@@ -24,7 +25,7 @@ public class Film {
     @NotBlank(message = "Поле 'name' не может быть пустым")
     private String name;
 
-    @Length(max = 200, message = "Максимальная длина описания — 200 символов")
+    @Size(min = 1, max = 200, message = "Максимальная длина описания — 200 символов")
     private String description;
 
     @NotNull(message = "Поле 'releaseDate' не может быть пустой")

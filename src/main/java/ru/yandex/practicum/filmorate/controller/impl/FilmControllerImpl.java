@@ -12,6 +12,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController("/films")
 @RequestMapping(value = "/films", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,9 +45,9 @@ public class FilmControllerImpl implements FilmControllerApi {
     }
 
     @Override
-    public List<Film> getFilms() throws JsonProcessingException {
+    public Map<Integer, Film> getFilms() throws JsonProcessingException {
         log.info("Start get films");
-        List<Film> responseFilm = filmServices.getFilms();
+        Map<Integer, Film> responseFilm = filmServices.getFilms();
         log.info("Finish get film. Response: " + objectMapper.writeValueAsString(responseFilm));
         return responseFilm;
     }

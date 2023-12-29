@@ -14,7 +14,7 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Map;
 
 @Validated
 public interface UserControllerApi {
@@ -59,5 +59,5 @@ public interface UserControllerApi {
     })
     @Operation(description = "Получить список всех пользователей")
     @Tag(name = "3. Получение списка всех пользователей")
-    List<User> getUsers() throws JsonProcessingException;
+    Map<Integer, User> getUsers() throws JsonProcessingException;
 }
