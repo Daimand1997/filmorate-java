@@ -35,17 +35,4 @@ public class Film {
     @Min(value = 0, message = "Продолжительность фильма должна быть положительной")
     private Integer duration;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Film film = (Film) o;
-        return Objects.equals(id, film.id) && Objects.equals(name, film.name) && Objects.equals(description, film.description) && Objects.equals(releaseDate, film.releaseDate) && Objects.equals(duration, film.duration);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, releaseDate, duration);
-    }
-
 }
