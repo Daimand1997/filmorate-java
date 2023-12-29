@@ -6,6 +6,7 @@ import lombok.Data;
 import ru.yandex.practicum.filmorate.validations.DateFutureDateSerialize;
 
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -30,7 +31,7 @@ public class Film {
     @JsonSerialize(converter = DateFutureDateSerialize.class)
     private LocalDate releaseDate;
 
-    @Size(min = 0, message = "Продолжительность фильма должна быть положительной")
+    @Min(value = 0, message = "Продолжительность фильма должна быть положительной")
     private Integer duration;
 
 }
