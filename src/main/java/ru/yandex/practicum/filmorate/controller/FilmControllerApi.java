@@ -14,7 +14,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
+import java.util.List;
 
 @Validated
 public interface FilmControllerApi {
@@ -59,7 +59,7 @@ public interface FilmControllerApi {
     })
     @Operation(description = "Получить список всех фильмов")
     @Tag(name = "3. Получение списка всех фильмов")
-    Map<Integer, Film> getFilms() throws JsonProcessingException;
+    List<Film> getFilms() throws JsonProcessingException;
 
 
 }

@@ -2,7 +2,7 @@ package ru.yandex.practicum.filmorate.service;
 
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.util.Map;
+import java.util.List;
 
 public interface FilmService {
 
@@ -13,5 +13,5 @@ public interface FilmService {
     Film updateFilm(Film film);
 
     // Метод получения всех фильмов
-    Map<Integer, Film> getFilms();
+    List<Film> getFilms();
 }
