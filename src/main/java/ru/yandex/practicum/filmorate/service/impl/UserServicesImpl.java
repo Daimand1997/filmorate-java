@@ -2,8 +2,8 @@ package ru.yandex.practicum.filmorate.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Component
-@Data
+@Service
+@Slf4j
 public class UserServicesImpl implements UserService {
 
     private static Integer id = 0;

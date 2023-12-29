@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController("/films")
 @RequestMapping(value = "/films", produces = MediaType.APPLICATION_JSON_VALUE)
-@Component
 @Slf4j
 public class FilmControllerImpl implements FilmControllerApi {
 

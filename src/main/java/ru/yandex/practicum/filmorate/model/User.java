@@ -1,20 +1,16 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Data
-@Validated
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
-    @Id
     private Integer id;
 
     @Email(message = "Электронная почта не должна быть пустой и должна содержать @")

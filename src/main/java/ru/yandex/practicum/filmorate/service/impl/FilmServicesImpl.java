@@ -2,9 +2,8 @@ package ru.yandex.practicum.filmorate.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
@@ -14,8 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-@Data
-@Component
+@Service
 public class FilmServicesImpl implements FilmService {
 
     private static Integer id = 0;

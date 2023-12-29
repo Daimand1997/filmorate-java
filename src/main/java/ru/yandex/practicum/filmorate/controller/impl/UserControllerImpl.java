@@ -19,7 +19,6 @@ import java.util.List;
 
 @RestController("/users")
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-@Component
 @Slf4j
 @Data
 @Validated
@@ -34,7 +33,7 @@ public class UserControllerImpl implements UserControllerApi {
     }
 
     @Override
-    public User addUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException {
+    public User addUser(User user) throws JsonProcessingException {
         log.info("Start create user. " + objectMapper.writeValueAsString(user));
         User responseUser = userServices.addUser(user);
         log.info("Finish create user. " + objectMapper.writeValueAsString(user));
