@@ -13,7 +13,7 @@ import ru.yandex.practicum.filmorate.controller.UserControllerApi;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.impl.UserServicesImpl;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController("/users")
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,9 +47,9 @@ public class UserControllerImpl implements UserControllerApi {
     }
 
     @Override
-    public Map<Integer, User> getUsers() throws JsonProcessingException {
+    public List<User> getUsers() throws JsonProcessingException {
         log.info("Start get users.");
-        Map<Integer, User> responseUsers = userServices.getUsers();
+        List<User> responseUsers = userServices.getUsers();
         log.info("Finish get users: " + objectMapper.writeValueAsString(responseUsers));
         return responseUsers;
     }

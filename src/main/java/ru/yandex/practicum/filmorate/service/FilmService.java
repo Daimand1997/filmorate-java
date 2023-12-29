@@ -1,8 +1,9 @@
 package ru.yandex.practicum.filmorate.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.util.Map;
+import java.util.List;
 
 public interface FilmService {
 
@@ -10,8 +11,8 @@ public interface FilmService {
     Film addFilm(Film film);
 
     // Метод обновления фильма
-    Film updateFilm(Film film);
+    Film updateFilm(Film film) throws JsonProcessingException;
 
     // Метод получения всех фильмов
-    Map<Integer, Film> getFilms();
+    List<Film> getFilms();
 }

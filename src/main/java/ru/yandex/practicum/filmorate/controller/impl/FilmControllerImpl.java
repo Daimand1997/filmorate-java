@@ -11,7 +11,7 @@ import ru.yandex.practicum.filmorate.controller.FilmControllerApi;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController("/films")
 @RequestMapping(value = "/films", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,9 +44,9 @@ public class FilmControllerImpl implements FilmControllerApi {
     }
 
     @Override
-    public Map<Integer, Film> getFilms() throws JsonProcessingException {
+    public List<Film> getFilms() throws JsonProcessingException {
         log.info("Start get films");
-        Map<Integer, Film> responseFilm = filmServices.getFilms();
+        List<Film> responseFilm = filmServices.getFilms();
         log.info("Finish get film. Response: " + objectMapper.writeValueAsString(responseFilm));
         return responseFilm;
     }

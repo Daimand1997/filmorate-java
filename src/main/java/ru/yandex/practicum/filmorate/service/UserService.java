@@ -1,8 +1,9 @@
 package ru.yandex.practicum.filmorate.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.yandex.practicum.filmorate.model.User;
 
-import java.util.Map;
+import java.util.List;
 
 public interface UserService {
 
@@ -10,8 +11,8 @@ public interface UserService {
     User addUser(User user);
 
     // Метод изменения пользователя
-    User updateUser(User user);
+    User updateUser(User user) throws JsonProcessingException;
 
     // Метод получения всех пользователей
-    Map<Integer, User> getUsers();
+    List<User> getUsers();
 }
