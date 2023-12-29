@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
@@ -35,7 +36,7 @@ public class FilmServicesImpl implements FilmService {
     @Override
     public Film updateFilm(Film film) throws JsonProcessingException {
         if (films.stream().filter(g -> g.getId().equals(film.getId())).findFirst().isEmpty())
-            throw new ValidationException("Not found film from update by "
+            throw new ResourceAppException("Not found film from update by "
                     + objectMapper.writeValueAsString(film));
         for (int i = 0; i < films.size(); i++) {
             if (films.get(i).getId().equals(film.getId())) {

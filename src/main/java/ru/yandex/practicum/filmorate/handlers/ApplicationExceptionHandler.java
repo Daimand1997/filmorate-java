@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.ResponseApi;
 
@@ -14,7 +15,7 @@ import ru.yandex.practicum.filmorate.model.ResponseApi;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(ResourceAppException.class)
     public ResponseEntity<ResponseApi> handleException(Exception e) {
         String errorMessage = String.format(e.getMessage());
         log.error(errorMessage);
