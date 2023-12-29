@@ -19,6 +19,6 @@ public class DateFutureDateSerialize extends StdConverter<Object, String> {
             }
             return dateTimeFormatter.format((LocalDate) value);
         }
-        throw new ValidationException("Дата должна быть формата yyyy-mm-dd");
+        throw new ResourceAppException("Дата должна быть формата yyyy-mm-dd");
     }
 }
