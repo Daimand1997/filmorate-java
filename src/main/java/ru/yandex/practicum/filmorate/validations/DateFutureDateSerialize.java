@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.validations;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
+import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class DateFutureDateSerialize extends StdConverter<Object, String> {
     public String convert(Object value) {
         if (value instanceof LocalDate) {
             if (LocalDate.parse("1895-12-28").isAfter((LocalDate) value)) {
-                throw new ValidationException("Дата не может быть раньше 28.12.1895");
+                throw new ResourceAppException("Дата не может быть раньше 28.12.1895");
             }
             return dateTimeFormatter.format((LocalDate) value);
         }
