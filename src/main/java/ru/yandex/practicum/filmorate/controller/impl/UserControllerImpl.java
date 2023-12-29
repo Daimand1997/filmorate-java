@@ -2,7 +2,9 @@ package ru.yandex.practicum.filmorate.controller.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
@@ -19,17 +21,19 @@ import java.util.List;
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Component
 @Slf4j
+@Data
 @Validated
 public class UserControllerImpl implements UserControllerApi {
     private final UserServicesImpl userServices;
     private final ObjectMapper objectMapper;
 
+    @Autowired
     public UserControllerImpl(UserServicesImpl userServices, ObjectMapper objectMapper) {
         this.userServices = userServices;
         this.objectMapper = objectMapper;
     }
 
-    @PostMapping()
+    @Override
     public User addUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException {
         log.info("Start create user. " + objectMapper.writeValueAsString(user));
         User responseUser = userServices.addUser(user);
@@ -37,7 +41,7 @@ public class UserControllerImpl implements UserControllerApi {
         return responseUser;
     }
 
-    @PutMapping()
+    @Override
     public User updateUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException {
         log.info("Start update user. " + objectMapper.writeValueAsString(user));
         User responseUser = userServices.updateUser(user);
@@ -45,7 +49,7 @@ public class UserControllerImpl implements UserControllerApi {
         return responseUser;
     }
 
-    @GetMapping()
+    @Override
     public List<User> getUsers() throws JsonProcessingException {
         log.info("Start get users.");
         List<User> responseUsers = userServices.getUsers();

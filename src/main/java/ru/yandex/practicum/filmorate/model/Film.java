@@ -16,7 +16,6 @@ import java.util.Objects;
 /**
  * Film.
  */
-@Entity
 @Data
 @Validated
 public class Film {

@@ -5,15 +5,12 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
-@Entity
 @Validated
 public class User {
 
@@ -21,6 +18,9 @@ public class User {
     private Integer id;
 
     @Email(message = "Электронная почта не должна быть пустой и должна содержать @")
+    @Valid
+    @NotNull
+    @NotEmpty
     private String email;
 
     @NotBlank(message = "Логин не может быть пустым или состоять только из пробелов")
