@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.controller.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -12,7 +11,6 @@ import ru.yandex.practicum.filmorate.controller.FilmControllerApi;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController("/films")
