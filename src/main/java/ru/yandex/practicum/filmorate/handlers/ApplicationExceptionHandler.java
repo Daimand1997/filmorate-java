@@ -15,11 +15,18 @@ import ru.yandex.practicum.filmorate.model.ResponseApi;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 
-    @ExceptionHandler(ResourceAppException.class)
+    @ExceptionHandler
     public ResponseEntity<ResponseApi> handleException(Exception e) {
         String errorMessage = String.format(e.getMessage());
         log.error(errorMessage);
         return new ResponseEntity<>(new ResponseApi(errorMessage), HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseApi> handleResourceAppException(ResourceAppException e) {
+        String errorMessage = String.format(e.getMessage());
+        log.error(errorMessage);
+        return new ResponseEntity<>(new ResponseApi(errorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler
