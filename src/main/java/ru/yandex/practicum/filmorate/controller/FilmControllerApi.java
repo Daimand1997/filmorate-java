@@ -35,7 +35,7 @@ public interface FilmControllerApi {
     @Tag(name = "1. Добавление нового фильма")
     Film addFilm(@RequestBody @Valid @NotNull Film film) throws JsonProcessingException;
 
-    @PutMapping
+    @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -48,7 +48,7 @@ public interface FilmControllerApi {
     @Tag(name = "2. Обновление существующего фильма")
     Film updateFilm(@RequestBody @Valid @NotNull Film film) throws JsonProcessingException;
 
-    @GetMapping
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",

@@ -18,7 +18,7 @@ public class UserServicesImpl implements UserService {
 
     private static Integer id = 0;
     private final ObjectMapper objectMapper;
-    private List<User> users = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
 
     public UserServicesImpl(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;

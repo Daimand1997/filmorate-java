@@ -16,7 +16,6 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
 		<jackson-databind.version>2.16.1</jackson-databind.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
 	</properties>
@@ -56,18 +55,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.16.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.15.1</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

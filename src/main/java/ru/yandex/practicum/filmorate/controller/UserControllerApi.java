@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Validated
 public interface UserControllerApi {
 
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -32,9 +33,9 @@ public interface UserControllerApi {
     })
     @Operation(description = "Добавить нового пользователя")
     @Tag(name = "1. Добавление нового пользователя")
-    User addUser(@RequestBody @Valid User user) throws JsonProcessingException;
+    User addUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException;
 
-    @PutMapping
+    @PutMapping()
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -45,9 +46,9 @@ public interface UserControllerApi {
     })
     @Operation(description = "Обновить существующего пользователя")
     @Tag(name = "2. Обновление существующего пользователя")
-    User updateUser(@RequestBody @Valid User user) throws JsonProcessingException;
+    User updateUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException;
 
-    @GetMapping
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",

@@ -6,15 +6,13 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.controller.UserControllerApi;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.impl.UserServicesImpl;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController("/users")
@@ -41,7 +39,7 @@ public class UserControllerImpl implements UserControllerApi {
     }
 
     @Override
-    public User updateUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException {
+    public User updateUser(User user) throws JsonProcessingException {
         log.info("Start update user. " + objectMapper.writeValueAsString(user));
         User responseUser = userServices.updateUser(user);
         log.info("Finish update user. " + objectMapper.writeValueAsString(user));

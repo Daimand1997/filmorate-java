@@ -18,7 +18,7 @@ public class FilmServicesImpl implements FilmService {
 
     private static Integer id = 0;
     private final ObjectMapper objectMapper;
-    private List<Film> films = new ArrayList<>();
+    private final List<Film> films = new ArrayList<>();
 
     public FilmServicesImpl(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;

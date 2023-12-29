@@ -3,8 +3,9 @@ package ru.yandex.practicum.filmorate.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 @Data
@@ -13,19 +14,16 @@ public class User {
 
     private Integer id;
 
-    @Email(message = "Электронная почта не должна быть пустой и должна содержать @")
-    @Valid
-    @NotNull
-    @NotEmpty
+    @Email(message = "Поле 'email' не должна быть пустой и должна содержать @")
     private String email;
 
-    @NotBlank(message = "Логин не может быть пустым или состоять только из пробелов")
+    @NotNull(message = "Поле 'login' не может быть пустым или состоять только из пробелов")
     private String login;
 
     private String name;
 
-    @NotNull(message = "Некорректная дата рождения формата yyyy-mm-dd")
-    @Past(message = "Дата рождения не может быть в будущем")
+    @NotNull(message = "Поле 'birthday' должно быть формата yyyy-mm-dd")
+    @Past(message = "Поле 'birthday' не может быть в будущем")
     private LocalDate birthday;
 
 }

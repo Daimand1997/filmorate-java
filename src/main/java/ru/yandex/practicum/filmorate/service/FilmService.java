@@ -7,9 +7,12 @@ import java.util.List;
 
 public interface FilmService {
 
+    // Метод добавления фильма
     Film addFilm(Film film);
 
+    // Метод обновления фильма
     Film updateFilm(Film film) throws JsonProcessingException;
 
+    // Метод получения всех фильмов
     List<Film> getFilms();
 }
