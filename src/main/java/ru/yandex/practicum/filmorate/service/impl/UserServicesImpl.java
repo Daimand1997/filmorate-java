@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,10 +33,10 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) throws JsonProcessingException {
+    public User updateUser(User user) {
         if (!users.containsKey(user.getId()))
-            throw new ResourceAppException("Not found user from update by "
-                    + objectMapper.writeValueAsString(user));
+            throw new ResourceAppException("Not found user from update by id: "
+                    + user.getId());
         if (user.getName() == null || user.getName().isEmpty()) user.setName(user.getLogin());
         users.put(user.getId(), user);
         return user;

@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,10 +30,10 @@ public class FilmServicesImpl implements FilmService {
     }
 
     @Override
-    public Film updateFilm(Film film) throws JsonProcessingException {
+    public Film updateFilm(Film film) {
         if (!films.containsKey(id))
-            throw new ResourceAppException("Not found film from update by "
-                    + objectMapper.writeValueAsString(film));
+            throw new ResourceAppException("Not found film from update by id: "
+                    + film.getId());
         films.put(id, film);
         return film;
     }
