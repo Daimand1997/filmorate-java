@@ -16,13 +16,6 @@ import ru.yandex.practicum.filmorate.model.ResponseApi;
 public class ApplicationExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ResponseApi> handleException(Exception e) {
-        String errorMessage = String.format(e.getMessage());
-        log.error(errorMessage);
-        return new ResponseEntity<>(new ResponseApi(errorMessage), HttpStatus.SERVICE_UNAVAILABLE);
-    }
-
-    @ExceptionHandler
     public ResponseEntity<ResponseApi> handleResourceAppException(ResourceAppException e) {
         String errorMessage = String.format(e.getMessage());
         log.error(errorMessage);
