@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class User {
     @Email(message = "Поле 'email' не должна быть пустой и должна содержать @")
     private String email;
 
-    @NotNull(message = "Поле 'login' не может быть пустым или состоять только из пробелов")
+    @NotBlank(message = "Поле 'login' не может быть пустым или состоять только из пробелов")
     private String login;
 
     private String name;
