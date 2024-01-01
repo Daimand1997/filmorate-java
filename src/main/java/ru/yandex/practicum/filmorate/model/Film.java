@@ -22,6 +22,7 @@ public class Film {
     private Integer id;
 
     @NotBlank(message = "Поле 'name' не может быть пустым")
+    @Size(min = 1, max = 2048, message = "Некорректный размер названия фильма")
     private String name;
 
     @Size(min = 1, max = 200, message = "Максимальная длина описания — 200 символов")
