@@ -4,12 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.controller.FilmControllerApi;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.service.impl.FilmServicesImpl;
+import ru.yandex.practicum.filmorate.storage.impl.InMemoryFilmStorageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,11 @@ import java.util.Map;
 @Data
 public class FilmControllerImpl implements FilmControllerApi {
 
-    private final FilmServicesImpl filmServices;
+    private final InMemoryFilmStorageImpl filmServices;
     private final ObjectMapper objectMapper;
 
-    public FilmControllerImpl(FilmServicesImpl filmServices, ObjectMapper objectMapper) {
+    @Autowired
+    public FilmControllerImpl(InMemoryFilmStorageImpl filmServices, ObjectMapper objectMapper) {
         this.filmServices = filmServices;
         this.objectMapper = objectMapper;
     }
@@ -48,8 +50,16 @@ public class FilmControllerImpl implements FilmControllerApi {
     @Override
     public List<Film> getFilms() throws JsonProcessingException {
         log.info("Start get films");
-        Map<Integer, Film> responseFilm = filmServices.getFilms();
+        Map<Long, Film> responseFilm = filmServices.getFilms();
         log.info("Finish get film. Response: " + objectMapper.writeValueAsString(responseFilm));
         return new ArrayList<>(responseFilm.values());
+    }
+
+    @Override
+    public Film getFilmById(Long id) throws JsonProcessingException {
+        log.info("Start get film by id: {}", id);
+        Film responseFilm = filmServices.getFilmById(id);
+        log.info("Finish get film by id {}. Response: {}", id, objectMapper.writeValueAsString(responseFilm));
+        return responseFilm;
     }
 }

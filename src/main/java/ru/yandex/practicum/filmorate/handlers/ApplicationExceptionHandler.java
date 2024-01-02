@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
+import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.ResponseApi;
 
@@ -38,5 +39,13 @@ public class ApplicationExceptionHandler {
         }
         log.error(errorMessage);
         return new ResponseEntity<>(new ResponseApi(errorMessage), HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseApi> handleResourceNotFoundException(ResourceNotFoundException e) {
+        String errorMessage = String.format(e.getMessage());
+        log.error(errorMessage);
+        return new ResponseEntity<>(new ResponseApi(errorMessage), HttpStatus.NOT_FOUND);
     }
 }

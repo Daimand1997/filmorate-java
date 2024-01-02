@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -33,7 +35,9 @@ public interface UserControllerApi {
     })
     @Operation(description = "Добавить нового пользователя")
     @Tag(name = "1. Добавление нового пользователя")
-    User addUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException;
+    User addUser(@RequestBody
+                 @Valid
+                 @NotNull(message = "User cannot be empty.") User user) throws JsonProcessingException;
 
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -46,7 +50,9 @@ public interface UserControllerApi {
     })
     @Operation(description = "Обновить существующего пользователя")
     @Tag(name = "2. Обновление существующего пользователя")
-    User updateUser(@RequestBody @Valid @NotNull User user) throws JsonProcessingException;
+    User updateUser(@RequestBody
+                    @Valid
+                    @NotNull(message = "User cannot be empty.") User user) throws JsonProcessingException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -60,4 +66,25 @@ public interface UserControllerApi {
     @Operation(description = "Получить список всех пользователей")
     @Tag(name = "3. Получение списка всех пользователей")
     List<User> getUsers() throws JsonProcessingException;
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Произошла ошибка валидации",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Получить определённого пользователя")
+    @Tag(name = "4. Получение определённого пользователя")
+    User getUserById(@PathVariable
+                    @Min(value = 1, message = "Id cannot be less 1")
+                    Long id) throws JsonProcessingException;
 }

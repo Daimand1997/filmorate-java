@@ -1,26 +1,26 @@
-package ru.yandex.practicum.filmorate.service.impl;
+package ru.yandex.practicum.filmorate.storage.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
+import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Service
 @Slf4j
-public class UserServicesImpl implements UserService {
+@Component
+public class InMemoryUserStorageImpl implements UserStorage {
 
-    private static Integer id = 0;
-    private final ObjectMapper objectMapper;
-    private final Map<Integer, User> users = new LinkedHashMap<>();
+    private static Long id = 1L;
+    private final Map<Long, User> users = new LinkedHashMap<>();
 
-    public UserServicesImpl(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    @Autowired
+    public InMemoryUserStorageImpl() {
+
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) throws JsonProcessingException {
+    public User updateUser(User user) {
         if (!users.containsKey(user.getId()))
             throw new ResourceAppException("Not found user from update by id " + user.getId());
         if (user.getName() == null || user.getName().isEmpty()) user.setName(user.getLogin());
@@ -42,7 +42,15 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    public Map<Integer, User> getUsers() {
+    public Map<Long, User> getUsers() {
         return users;
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        if(!users.containsKey(id)) {
+            throw new ResourceNotFoundException("Not found user by id " + id);
+        }
+        return users.get(id);
     }
 }
