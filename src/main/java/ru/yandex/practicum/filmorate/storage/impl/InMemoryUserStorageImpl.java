@@ -8,8 +8,8 @@ import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -52,5 +52,12 @@ public class InMemoryUserStorageImpl implements UserStorage {
             throw new ResourceNotFoundException("Not found user by id " + id);
         }
         return users.get(id);
+    }
+
+    @Override
+    public Set<User> getUsersById(Set<Long> idFriends) {
+        return idFriends.stream()
+                .map(this::getUserById)
+                .collect(Collectors.toSet());
     }
 }

@@ -87,4 +87,28 @@ public interface UserControllerApi {
     User getUserById(@PathVariable
                     @Min(value = 1, message = "Id cannot be less 1")
                     Long id) throws JsonProcessingException;
+
+    @GetMapping("/{id}/friends/{friendId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Произошла ошибка валидации",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Добавить пользователя в друзья")
+    @Tag(name = "5. добавление пользователя в друзья")
+    void addFriendById(@PathVariable("id")
+            @Min(value = 1, message = "Id cannot be less 1")
+            Long idUser,
+            @PathVariable("friendId")
+            @Min(value = 1, message = "Id cannot be less 1")
+            Long idFriend);
 }
