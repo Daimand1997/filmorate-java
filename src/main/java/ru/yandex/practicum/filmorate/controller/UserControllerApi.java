@@ -88,7 +88,7 @@ public interface UserControllerApi {
                     @Min(value = 1, message = "Id cannot be less 1")
                     Long id) throws JsonProcessingException;
 
-    @GetMapping("/{id}/friends/{friendId}")
+    @PutMapping("/{id}/friends/{friendId}")
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -109,6 +109,75 @@ public interface UserControllerApi {
             @Min(value = 1, message = "Id cannot be less 1")
             Long idUser,
             @PathVariable("friendId")
-            @Min(value = 1, message = "Id cannot be less 1")
+            @Min(value = 1, message = "friendId cannot be less 1")
             Long idFriend);
+
+    @DeleteMapping("/{id}/friends/{friendId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Произошла ошибка валидации",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Удалить пользователя из друзей")
+    @Tag(name = "6. Удаление пользователя из друзей")
+    void deleteFriendById(@PathVariable("id")
+                       @Min(value = 1, message = "Id cannot be less 1")
+                       Long idUser,
+                       @PathVariable("friendId")
+                       @Min(value = 1, message = "friendId cannot be less 1")
+                       Long idFriend);
+
+    @GetMapping("/{id}/friends")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Произошла ошибка валидации",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Получить список друзей пользователя")
+    @Tag(name = "7. Получение списка друзей пользователя")
+    List<User> getFriendsFromUserById(@PathVariable("id")
+                          @Min(value = 1, message = "Id cannot be less 1")
+                          Long idUser);
+
+    @GetMapping("/{id}/friends/common/{otherId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Произошла ошибка валидации",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404",
+                    description = "Пользователь не найден",
+                    content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Удалить пользователя из друзей")
+    @Tag(name = "8. Удаление пользователя из друзей")
+    List<User> getCommonsFriendsByIdUser(@PathVariable("id")
+                          @Min(value = 1, message = "Id cannot be less 1")
+                          Long idUser,
+                          @PathVariable("otherId")
+                          @Min(value = 1, message = "otherId cannot be less 1")
+                          Long idFriend);
 }

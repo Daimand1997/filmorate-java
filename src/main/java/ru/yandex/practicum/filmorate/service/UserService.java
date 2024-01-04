@@ -10,7 +10,7 @@ public interface UserService {
 
     void deleteFriend(Long idUser, Long idFriend);
 
-    List<User> friendsFromUserById(Long idUser);
+    List<User> getFriendsFromUserById(Long idUser);
 
-    List<User> commonsFriendsByIdUser(Long idUser, Long idOtherUser);
+    List<User> getCommonsFriendsByIdUser(Long idUser, Long idOtherUser);
 }

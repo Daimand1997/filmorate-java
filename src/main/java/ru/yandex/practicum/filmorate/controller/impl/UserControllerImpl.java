@@ -73,4 +73,28 @@ public class UserControllerImpl implements UserControllerApi {
         userService.addFriendById(idUser, idFriend);
         log.info("Successful add friend with id {} from user with id {}", idFriend, idUser);
     }
+
+    @Override
+    public void deleteFriendById(Long idUser, Long idFriend) {
+        log.info("Start delete friend with id {} from user with id {}", idFriend, idUser);
+        userService.deleteFriend(idUser, idFriend);
+        log.info("Successful delete friend with id {} from user with id {}", idFriend, idUser);
+    }
+
+    @Override
+    public List<User> getFriendsFromUserById(Long idUser) {
+        log.info("Start get friends from user with id {} ", idUser);
+        List<User> responseFriends = userService.getFriendsFromUserById(idUser);
+        log.info("Finish get friends from user with id {} . Response: {}", idUser, responseFriends);
+        return responseFriends;
+    }
+
+    @Override
+    public List<User> getCommonsFriendsByIdUser(Long idUser, Long idOtherUser) {
+        log.info("Start get commons friends between user with id {} and other user with id {}", idUser, idOtherUser);
+        List<User> responseCommonsFriends = userService.getCommonsFriendsByIdUser(idUser, idOtherUser);
+        log.info("Finish get commons friends between user with id {} and other user with id {}. Response: {}",
+                idUser, idOtherUser, responseCommonsFriends);
+        return responseCommonsFriends;
+    }
 }

@@ -43,14 +43,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> friendsFromUserById(Long idUser) {
+    public List<User> getFriendsFromUserById(Long idUser) {
         User user = inMemoryUserStorage.getUserById(idUser);
         Set<Long> idFriends = user.getFriends();
         return new ArrayList<>(inMemoryUserStorage.getUsersById(idFriends));
     }
 
     @Override
-    public List<User> commonsFriendsByIdUser(Long idUser, Long idOtherUser) {
+    public List<User> getCommonsFriendsByIdUser(Long idUser, Long idOtherUser) {
         User user = inMemoryUserStorage.getUserById(idUser);
         User otherUser = inMemoryUserStorage.getUserById(idOtherUser);
 
