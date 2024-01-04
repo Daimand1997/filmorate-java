@@ -60,4 +60,5 @@ public class InMemoryUserStorageImpl implements UserStorage {
                 .map(this::getUserById)
                 .collect(Collectors.toSet());
     }
+
 }

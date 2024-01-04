@@ -87,4 +87,54 @@ public interface FilmControllerApi {
     Film getFilmById(@PathVariable
                      @Min(value = 1, message = "Id cannot be less 1")
                      Long id) throws JsonProcessingException;
+
+    @PutMapping("/{id}/like/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Film.class))),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Добавить пользователем лайк к фильму")
+    @Tag(name = "5. Добавление пользователем лайк к фильму")
+    void addLikeFromFilm(@PathVariable("id")
+                    @Min(value = 1, message = "Id cannot be less 1")
+                    Long idUser,
+                    @PathVariable("userId")
+                    @Min(value = 1, message = "userId cannot be less 1")
+                    Long idFriend) throws JsonProcessingException;
+
+    @DeleteMapping("/{id}/like/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Film.class))),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Удалить пользователем лайк у фильма")
+    @Tag(name = "6. Удаление пользователем лайка у фильма")
+    void deleteLikeFromFilm(@PathVariable("id")
+                         @Min(value = 1, message = "Id cannot be less 1")
+                         Long idFilm,
+                         @PathVariable("userId")
+                         @Min(value = 1, message = "userId cannot be less 1")
+                         Long idUser) throws JsonProcessingException;
+
+    @GetMapping("/popular")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Film.class))),
+            @ApiResponse(responseCode = "500",
+                    description = "Произошла внутренняя ошибка",
+                    content = @Content(schema = @Schema()))
+    })
+    @Operation(description = "Получить топ фильмов по количеству лайков")
+    @Tag(name = "7. Получение топ фильмов по количеству лайков")
+    List<Film> getTopFilmsByLike(@RequestParam("count")
+                            Long countTopFilms) throws JsonProcessingException;
 }

@@ -85,7 +85,7 @@ public class UserControllerImpl implements UserControllerApi {
     public List<User> getFriendsFromUserById(Long idUser) {
         log.info("Start get friends from user with id {} ", idUser);
         List<User> responseFriends = userService.getFriendsFromUserById(idUser);
-        log.info("Finish get friends from user with id {} . Response: {}", idUser, responseFriends);
+        log.info("Finish get friends from user with id {}. Response: {}", idUser, responseFriends);
         return responseFriends;
     }
 

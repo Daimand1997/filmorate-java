@@ -29,23 +29,23 @@ public class UserServiceImpl implements UserService {
     {
         User user = inMemoryUserStorage.getUserById(idUser);
         User friend = inMemoryUserStorage.getUserById(idFriend);
-        user.getFriends().add(friend.getId());
+        user.getIdFriends().add(friend.getId());
     }
 
     @Override
     public void deleteFriend(Long idUser, Long idFriend) {
         User user = inMemoryUserStorage.getUserById(idUser);
-        if(!user.getFriends().contains(idFriend)) {
+        if(!user.getIdFriends().contains(idFriend)) {
             throw new ResourceNotFoundException("Not found friend with id " +
                     idFriend + " from user with id " + idUser);
         }
-        user.getFriends().remove(idFriend);
+        user.getIdFriends().remove(idFriend);
     }
 
     @Override
     public List<User> getFriendsFromUserById(Long idUser) {
         User user = inMemoryUserStorage.getUserById(idUser);
-        Set<Long> idFriends = user.getFriends();
+        Set<Long> idFriends = user.getIdFriends();
         return new ArrayList<>(inMemoryUserStorage.getUsersById(idFriends));
     }
 
@@ -54,8 +54,8 @@ public class UserServiceImpl implements UserService {
         User user = inMemoryUserStorage.getUserById(idUser);
         User otherUser = inMemoryUserStorage.getUserById(idOtherUser);
 
-        Set<Long> commonsFriends = user.getFriends().stream()
-                .filter(otherUser.getFriends()::contains)
+        Set<Long> commonsFriends = user.getIdFriends().stream()
+                .filter(otherUser.getIdFriends()::contains)
                 .collect(Collectors.toSet());
 
         return new ArrayList<>(inMemoryUserStorage.getUsersById(commonsFriends));

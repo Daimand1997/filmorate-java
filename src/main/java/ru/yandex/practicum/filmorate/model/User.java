@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -30,6 +29,7 @@ public class User {
     @Past(message = "Field 'birthday' must be in past")
     private LocalDate birthday;
 
-    private Set<Long> Friends;
+    private Set<Long> idFriends;
 
+    private Set<Long> idLikeFilms;
 }
