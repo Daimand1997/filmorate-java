@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import ru.yandex.practicum.filmorate.validations.DateFutureDateSerialize;
 
 import javax.persistence.Id;
@@ -36,5 +35,5 @@ public class Film {
     @Min(value = 0, message = "Field 'duration' must be greater 0")
     private Long duration;
 
-    private Long countLike;
+    private long countLike;
 }

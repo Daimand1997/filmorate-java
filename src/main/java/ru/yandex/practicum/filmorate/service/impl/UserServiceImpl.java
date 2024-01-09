@@ -8,9 +8,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.impl.InMemoryUserStorageImpl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,8 +43,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getFriendsFromUserById(Long idUser) {
         User user = inMemoryUserStorage.getUserById(idUser);
-        Set<Long> idFriends = user.getIdFriends();
-        return new ArrayList<>(inMemoryUserStorage.getUsersById(idFriends));
+        List<Long> idFriends = user.getIdFriends();
+        return inMemoryUserStorage.getUsersById(idFriends);
     }
 
     @Override
@@ -54,10 +52,10 @@ public class UserServiceImpl implements UserService {
         User user = inMemoryUserStorage.getUserById(idUser);
         User otherUser = inMemoryUserStorage.getUserById(idOtherUser);
 
-        Set<Long> commonsFriends = user.getIdFriends().stream()
+        List<Long> commonsFriends = user.getIdFriends().stream()
                 .filter(otherUser.getIdFriends()::contains)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
-        return new ArrayList<>(inMemoryUserStorage.getUsersById(commonsFriends));
+        return inMemoryUserStorage.getUsersById(commonsFriends);
     }
 }

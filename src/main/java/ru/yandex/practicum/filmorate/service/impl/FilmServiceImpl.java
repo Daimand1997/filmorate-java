@@ -33,7 +33,8 @@ public class FilmServiceImpl implements FilmService {
     public void addLikeFromFilm(Long idFilm, Long idUser) {
         Film film = inMemoryFilmStorage.getFilmById(idFilm);
         User user = inMemoryUserStorage.getUserById(idUser);
-        if(user.getIdLikeFilms().contains(idFilm)) {
+        if(user.getIdLikeFilms() != null
+                && user.getIdLikeFilms().contains(idFilm)) {
             throw new ValidationException(String.format("The film with id %s has already been liked user with id %s",
                     idFilm, idUser));
         }

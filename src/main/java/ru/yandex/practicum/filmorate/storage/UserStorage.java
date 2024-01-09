@@ -21,5 +21,5 @@ public interface UserStorage {
     User getUserById(Long id);
 
     // Метод получения списка пользователей по их Id
-    Set<User> getUsersById(Set<Long> idFriends);
+    List<User> getUsersById(List<Long> idFriends);
 }

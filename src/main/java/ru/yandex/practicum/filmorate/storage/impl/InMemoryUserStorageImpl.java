@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class InMemoryUserStorageImpl implements UserStorage {
 
-    private static Long id = 1L;
+    private static Long id = 0L;
     private final Map<Long, User> users = new LinkedHashMap<>();
 
     @Autowired
@@ -55,10 +55,10 @@ public class InMemoryUserStorageImpl implements UserStorage {
     }
 
     @Override
-    public Set<User> getUsersById(Set<Long> idFriends) {
+    public List<User> getUsersById(List<Long> idFriends) {
         return idFriends.stream()
                 .map(this::getUserById)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
 }

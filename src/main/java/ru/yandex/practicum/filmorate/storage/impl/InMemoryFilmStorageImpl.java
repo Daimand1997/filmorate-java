@@ -14,7 +14,7 @@ import java.util.Map;
 @Component
 public class InMemoryFilmStorageImpl implements FilmStorage {
 
-    private static Long id = 1L;
+    private static Long id = 0L;
     private final Map<Long, Film> films = new LinkedHashMap<>();
 
     @Override
