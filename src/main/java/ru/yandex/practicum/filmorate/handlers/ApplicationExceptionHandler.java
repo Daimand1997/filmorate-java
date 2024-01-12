@@ -59,7 +59,7 @@ public class ApplicationExceptionHandler {
         if (errorMessage.length() > 0) errorMessage.delete(errorMessage.length() - 2, errorMessage.length());
 
         log.error(String.valueOf(errorMessage));
-        return new ResponseEntity<>(new ResponseApi(String.valueOf(errorMessage)), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseApi(String.valueOf(errorMessage)), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
