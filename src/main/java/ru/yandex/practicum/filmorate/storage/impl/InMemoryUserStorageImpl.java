@@ -8,7 +8,10 @@ import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -48,9 +51,7 @@ public class InMemoryUserStorageImpl implements UserStorage {
 
     @Override
     public User getUserById(Long id) {
-        if(!users.containsKey(id)) {
-            throw new ResourceNotFoundException("Not found user by id " + id);
-        }
+        if (!users.containsKey(id)) throw new ResourceNotFoundException("Not found user by id " + id);
         return users.get(id);
     }
 
