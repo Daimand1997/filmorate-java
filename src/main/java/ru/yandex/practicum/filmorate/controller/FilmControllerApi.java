@@ -135,6 +135,6 @@ public interface FilmControllerApi {
     })
     @Operation(description = "Получить топ фильмов по количеству лайков")
     @Tag(name = "7. Получение топ фильмов по количеству лайков")
-    List<Film> getTopFilmsByLike(@RequestParam("count")
+    List<Film> getTopFilmsByLike(@RequestParam(required = false, value = "count")
                             Long countTopFilms) throws JsonProcessingException;
 }

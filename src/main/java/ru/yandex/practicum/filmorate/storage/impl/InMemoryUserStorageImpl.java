@@ -26,7 +26,7 @@ public class InMemoryUserStorageImpl implements UserStorage {
     @Override
     public User addUser(User user) {
         user.setId(++id);
-        if (user.getName() == null || user.getName().isEmpty())
+        if (Objects.isNull(user.getName()) || user.getName().isEmpty())
             user.setName(user.getLogin());
         users.put(user.getId(), user);
         return user;
@@ -36,7 +36,7 @@ public class InMemoryUserStorageImpl implements UserStorage {
     public User updateUser(User user) {
         if (!users.containsKey(user.getId()))
             throw new ResourceAppException("Not found user from update by id " + user.getId());
-        if (user.getName() == null || user.getName().isEmpty()) user.setName(user.getLogin());
+        if (Objects.isNull(user.getName()) || user.getName().isEmpty()) user.setName(user.getLogin());
         users.put(user.getId(), user);
         return user;
     }

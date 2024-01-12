@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -21,7 +22,9 @@ public class FilmServiceImpl implements FilmService {
 
     private final InMemoryFilmStorageImpl inMemoryFilmStorage;
     private final InMemoryUserStorageImpl inMemoryUserStorage;
-    private final Long defaultCountTopFilm = 10L;
+
+    @Value("${app.defaultCountTopLikeFilms}")
+    private String defaultCountTopLikeFilms;
 
     @Autowired
     public FilmServiceImpl(InMemoryFilmStorageImpl inMemoryFilmStorage, InMemoryUserStorageImpl inMemoryUserStorage) {
@@ -33,7 +36,7 @@ public class FilmServiceImpl implements FilmService {
     public void addLikeFromFilm(Long idFilm, Long idUser) {
         Film film = inMemoryFilmStorage.getFilmById(idFilm);
         User user = inMemoryUserStorage.getUserById(idUser);
-        if(user.getIdLikeFilms() != null
+        if(Objects.nonNull(user.getIdLikeFilms())
                 && user.getIdLikeFilms().contains(idFilm)) {
             throw new ValidationException(String.format("The film with id %s has already been liked user with id %s",
                     idFilm, idUser));
@@ -56,7 +59,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<Film> getTopFilmsByLike(Long countTopFilms) {
-        return getTopFilmsByCount(Objects.requireNonNullElse(countTopFilms, defaultCountTopFilm));
+        return getTopFilmsByCount(Objects.requireNonNullElse(countTopFilms, Long.parseLong(defaultCountTopLikeFilms)));
     }
 
     private List<Film> getTopFilmsByCount(Long countTopFilms) {
