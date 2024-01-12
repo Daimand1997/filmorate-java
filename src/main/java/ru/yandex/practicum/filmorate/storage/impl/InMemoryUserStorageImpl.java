@@ -54,7 +54,7 @@ public class InMemoryUserStorageImpl implements UserStorage {
 
     @Override
     public List<User> getUsersById(List<Long> idFriends) {
-        if(Objects.nonNull(idFriends)) {
+        if (Objects.nonNull(idFriends)) {
             return idFriends.stream()
                     .map(this::getUserById)
                     .collect(Collectors.toList());
