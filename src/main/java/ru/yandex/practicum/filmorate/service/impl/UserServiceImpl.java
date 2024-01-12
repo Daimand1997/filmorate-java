@@ -8,7 +8,9 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.impl.InMemoryUserStorageImpl;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,10 +52,12 @@ public class UserServiceImpl implements UserService {
         User user = inMemoryUserStorage.getUserById(idUser);
         User otherUser = inMemoryUserStorage.getUserById(idOtherUser);
 
-        List<Long> commonsFriends = user.getIdFriends().stream()
-                .filter(otherUser.getIdFriends()::contains)
-                .collect(Collectors.toList());
-
-        return inMemoryUserStorage.getUsersById(commonsFriends);
+        if (Objects.nonNull(user.getIdFriends()) && Objects.nonNull(otherUser.getIdFriends())) {
+            List<Long> commonsFriends = user.getIdFriends().stream()
+                    .filter(otherUser.getIdFriends()::contains)
+                    .collect(Collectors.toList());
+            return inMemoryUserStorage.getUsersById(commonsFriends);
+        }
+        return Collections.emptyList();
     }
 }
