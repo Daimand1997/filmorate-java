@@ -30,10 +30,8 @@ public class UserServiceImpl implements UserService {
         User user = inMemoryUserStorage.getUserById(idUser);
         User friend = inMemoryUserStorage.getUserById(idFriend);
         // Добавляю user друга
-        if (Objects.isNull(user.getIdFriends())) user.setIdFriends(new ArrayList<>());
         user.getIdFriends().add(friend.getId());
         // Добавляю другу user
-        if (Objects.isNull(friend.getIdFriends())) friend.setIdFriends(new ArrayList<>());
         friend.getIdFriends().add(user.getId());
     }
 

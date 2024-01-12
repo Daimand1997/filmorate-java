@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,8 +32,8 @@ public class User {
     private LocalDate birthday;
 
     @JsonIgnore
-    private List<Long> idFriends;
+    private List<Long> idFriends = new ArrayList<>();
 
     @JsonIgnore
-    private List<Long> idLikeFilms;
+    private List<Long> idLikeFilms = new ArrayList<>();
 }
