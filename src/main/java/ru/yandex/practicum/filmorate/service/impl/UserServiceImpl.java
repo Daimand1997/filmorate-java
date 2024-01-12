@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.impl.InMemoryUserStorageImpl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
     public void addFriendById(Long idUser, Long idFriend) {
         User user = inMemoryUserStorage.getUserById(idUser);
         User friend = inMemoryUserStorage.getUserById(idFriend);
+        if (Objects.isNull(user.getIdFriends())) user.setIdFriends(new ArrayList<>());
         user.getIdFriends().add(friend.getId());
     }
 

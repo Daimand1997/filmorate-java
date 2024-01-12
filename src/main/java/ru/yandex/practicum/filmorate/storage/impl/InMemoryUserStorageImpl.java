@@ -8,10 +8,7 @@ import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -57,9 +54,12 @@ public class InMemoryUserStorageImpl implements UserStorage {
 
     @Override
     public List<User> getUsersById(List<Long> idFriends) {
-        return idFriends.stream()
-                .map(this::getUserById)
-                .collect(Collectors.toList());
+        if(Objects.nonNull(idFriends)) {
+            return idFriends.stream()
+                    .map(this::getUserById)
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
     }
 
 }
