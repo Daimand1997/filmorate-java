@@ -36,11 +36,10 @@ public class FilmServiceImpl implements FilmService {
     public void addLikeFromFilm(Long idFilm, Long idUser) {
         Film film = inMemoryFilmStorage.getFilmById(idFilm);
         User user = inMemoryUserStorage.getUserById(idUser);
-        if(Objects.nonNull(user.getIdLikeFilms())
-                && user.getIdLikeFilms().contains(idFilm)) {
+        if (Objects.nonNull(user.getIdLikeFilms())
+                && user.getIdLikeFilms().contains(idFilm))
             throw new ValidationException(String.format("The film with id %s has already been liked user with id %s",
                     idFilm, idUser));
-        }
         film.setCountLike(film.getCountLike() + 1);
         user.getIdLikeFilms().add(idFilm);
     }
@@ -49,10 +48,9 @@ public class FilmServiceImpl implements FilmService {
     public void deleteLikeFromFilm(Long idFilm, Long idUser) {
         Film film = inMemoryFilmStorage.getFilmById(idFilm);
         User user = inMemoryUserStorage.getUserById(idUser);
-        if(!user.getIdLikeFilms().contains(idFilm)) {
+        if (!user.getIdLikeFilms().contains(idFilm))
             throw new ValidationException(String.format("The film with Id %s was not liked by user with id %s",
                     idFilm, idUser));
-        }
         film.setCountLike(film.getCountLike() - 1);
         user.getIdLikeFilms().remove(idFilm);
     }

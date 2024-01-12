@@ -23,8 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addFriendById(Long idUser, Long idFriend)
-    {
+    public void addFriendById(Long idUser, Long idFriend) {
         User user = inMemoryUserStorage.getUserById(idUser);
         User friend = inMemoryUserStorage.getUserById(idFriend);
         user.getIdFriends().add(friend.getId());
@@ -33,10 +32,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteFriend(Long idUser, Long idFriend) {
         User user = inMemoryUserStorage.getUserById(idUser);
-        if(!user.getIdFriends().contains(idFriend)) {
+        if (!user.getIdFriends().contains(idFriend))
             throw new ResourceNotFoundException("Not found friend with id " +
                     idFriend + " from user with id " + idUser);
-        }
         user.getIdFriends().remove(idFriend);
     }
 
