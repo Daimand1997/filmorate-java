@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -29,7 +30,9 @@ public class User {
     @Past(message = "Field 'birthday' must be in past")
     private LocalDate birthday;
 
+    @JsonIgnore
     private List<Long> idFriends;
 
+    @JsonIgnore
     private List<Long> idLikeFilms;
 }
