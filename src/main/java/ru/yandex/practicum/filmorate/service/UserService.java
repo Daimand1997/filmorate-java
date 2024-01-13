@@ -1,18 +1,16 @@
 package ru.yandex.practicum.filmorate.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.yandex.practicum.filmorate.model.User;
 
-import java.util.Map;
+import java.util.List;
 
 public interface UserService {
 
-    // Метод добавления пользователя
-    User addUser(User user);
+    void addFriendById(Long idUser, Long idFriend);
 
-    // Метод изменения пользователя
-    User updateUser(User user) throws JsonProcessingException;
+    void deleteFriend(Long idUser, Long idFriend);
 
-    // Метод получения всех пользователей
-    Map<Integer, User> getUsers();
+    List<User> getFriendsFromUserById(Long idUser);
+
+    List<User> getCommonsFriendsByIdUser(Long idUser, Long idOtherUser);
 }

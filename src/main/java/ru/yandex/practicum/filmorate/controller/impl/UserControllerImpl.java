@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.filmorate.controller.UserControllerApi;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.impl.UserServicesImpl;
+import ru.yandex.practicum.filmorate.service.impl.UserServiceImpl;
+import ru.yandex.practicum.filmorate.storage.impl.InMemoryUserStorageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +24,21 @@ import java.util.Map;
 @Data
 @Validated
 public class UserControllerImpl implements UserControllerApi {
-    private final UserServicesImpl userServices;
+    private final InMemoryUserStorageImpl userStorage;
+    private final UserServiceImpl userService;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public UserControllerImpl(UserServicesImpl userServices, ObjectMapper objectMapper) {
-        this.userServices = userServices;
+    public UserControllerImpl(InMemoryUserStorageImpl userStorage, UserServiceImpl userService, ObjectMapper objectMapper) {
+        this.userStorage = userStorage;
+        this.userService = userService;
         this.objectMapper = objectMapper;
     }
 
     @Override
     public User addUser(User user) throws JsonProcessingException {
         log.info("Start create user. " + objectMapper.writeValueAsString(user));
-        User responseUser = userServices.addUser(user);
+        User responseUser = userStorage.addUser(user);
         log.info("Finish create user. " + objectMapper.writeValueAsString(user));
         return responseUser;
     }
@@ -43,7 +46,7 @@ public class UserControllerImpl implements UserControllerApi {
     @Override
     public User updateUser(User user) throws JsonProcessingException {
         log.info("Start update user. " + objectMapper.writeValueAsString(user));
-        User responseUser = userServices.updateUser(user);
+        User responseUser = userStorage.updateUser(user);
         log.info("Finish update user. " + objectMapper.writeValueAsString(user));
         return responseUser;
     }
@@ -51,8 +54,47 @@ public class UserControllerImpl implements UserControllerApi {
     @Override
     public List<User> getUsers() throws JsonProcessingException {
         log.info("Start get users.");
-        Map<Integer, User> responseUsers = userServices.getUsers();
+        Map<Long, User> responseUsers = userStorage.getUsers();
         log.info("Finish get users: " + objectMapper.writeValueAsString(responseUsers));
         return new ArrayList<>(responseUsers.values());
+    }
+
+    @Override
+    public User getUserById(Long id) throws JsonProcessingException {
+        log.info("Start get user by id {}", id);
+        User responseUser = userStorage.getUserById(id);
+        log.info("Finish get user by id {}: {} ", id, objectMapper.writeValueAsString(responseUser));
+        return responseUser;
+    }
+
+    @Override
+    public void addFriendById(Long idUser, Long idFriend) {
+        log.info("Start add friend with id {} from user with id {}", idFriend, idUser);
+        userService.addFriendById(idUser, idFriend);
+        log.info("Successful add friend with id {} from user with id {}", idFriend, idUser);
+    }
+
+    @Override
+    public void deleteFriendById(Long idUser, Long idFriend) {
+        log.info("Start delete friend with id {} from user with id {}", idFriend, idUser);
+        userService.deleteFriend(idUser, idFriend);
+        log.info("Successful delete friend with id {} from user with id {}", idFriend, idUser);
+    }
+
+    @Override
+    public List<User> getFriendsFromUserById(Long idUser) {
+        log.info("Start get friends from user with id {} ", idUser);
+        List<User> responseFriends = userService.getFriendsFromUserById(idUser);
+        log.info("Finish get friends from user with id {}. Response: {}", idUser, responseFriends);
+        return responseFriends;
+    }
+
+    @Override
+    public List<User> getCommonsFriendsByIdUser(Long idUser, Long idOtherUser) {
+        log.info("Start get commons friends between user with id {} and other user with id {}", idUser, idOtherUser);
+        List<User> responseCommonsFriends = userService.getCommonsFriendsByIdUser(idUser, idOtherUser);
+        log.info("Finish get commons friends between user with id {} and other user with id {}. Response: {}",
+                idUser, idOtherUser, responseCommonsFriends);
+        return responseCommonsFriends;
     }
 }

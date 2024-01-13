@@ -1,20 +1,21 @@
-package ru.yandex.practicum.filmorate.service.impl;
+package ru.yandex.practicum.filmorate.storage.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.ResourceAppException;
+import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Slf4j
-@Service
-public class FilmServicesImpl implements FilmService {
+@Component
+public class InMemoryFilmStorageImpl implements FilmStorage {
 
-    private static Integer id = 0;
-    private final Map<Integer, Film> films = new LinkedHashMap<>();
+    private static Long id = 0L;
+    private final Map<Long, Film> films = new LinkedHashMap<>();
 
     @Override
     public Film addFilm(Film film) {
@@ -32,8 +33,14 @@ public class FilmServicesImpl implements FilmService {
     }
 
     @Override
-    public Map<Integer, Film> getFilms() {
+    public Map<Long, Film> getFilms() {
         return films;
+    }
+
+    @Override
+    public Film getFilmById(Long id) {
+        if (!films.containsKey(id)) throw new ResourceNotFoundException("Not found film by id " + id);
+        return films.get(id);
     }
 
 }

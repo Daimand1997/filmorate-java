@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
@@ -19,20 +20,22 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Film {
     @Id
-    private Integer id;
+    private Long id;
 
-    @NotBlank(message = "Поле 'name' не может быть пустым")
-    @Size(min = 1, max = 2048, message = "Некорректный размер названия фильма")
+    @NotBlank(message = "Field 'name' cannot be empty.")
+    @Size(min = 1, max = 2048, message = "Size field 'name' must be greater then 0 and less then 2048")
     private String name;
 
-    @Size(min = 1, max = 200, message = "Максимальная длина описания — 200 символов")
+    @Size(min = 1, max = 200, message = "Size field 'description' must be greater then 0 and less then 200")
     private String description;
 
-    @NotNull(message = "Поле 'releaseDate' не может быть пустой")
+    @NotNull(message = "Field 'releaseDate' cannot be empty.")
     @JsonSerialize(converter = DateFutureDateSerialize.class)
     private LocalDate releaseDate;
 
-    @Min(value = 0, message = "Продолжительность фильма должна быть положительной")
-    private Integer duration;
+    @Min(value = 0, message = "Field 'duration' must be greater 0")
+    private Long duration;
 
+    @JsonIgnore
+    private long countLike;
 }
