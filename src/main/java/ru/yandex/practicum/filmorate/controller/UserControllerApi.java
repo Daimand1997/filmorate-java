@@ -14,7 +14,6 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Validated
@@ -36,7 +35,7 @@ public interface UserControllerApi {
     @Tag(name = "1. Добавление нового пользователя")
     User addUser(@RequestBody
                  @Valid
-                 @NotNull(message = "User cannot be empty.") User user) throws JsonProcessingException;
+                 User user) throws JsonProcessingException;
 
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -51,7 +50,7 @@ public interface UserControllerApi {
     @Tag(name = "2. Обновление существующего пользователя")
     User updateUser(@RequestBody
                     @Valid
-                    @NotNull(message = "User cannot be empty.") User user) throws JsonProcessingException;
+                    User user) throws JsonProcessingException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)

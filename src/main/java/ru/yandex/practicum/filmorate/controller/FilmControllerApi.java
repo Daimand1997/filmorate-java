@@ -15,7 +15,6 @@ import ru.yandex.practicum.filmorate.model.User;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Validated
@@ -37,7 +36,7 @@ public interface FilmControllerApi {
     @Tag(name = "1. Добавление нового фильма")
     Film addFilm(@RequestBody
                  @Valid
-                 @NotNull(message = "Film cannot be empty.") Film film) throws JsonProcessingException;
+                 Film film) throws JsonProcessingException;
 
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -52,7 +51,7 @@ public interface FilmControllerApi {
     @Tag(name = "2. Обновление существующего фильма")
     Film updateFilm(@RequestBody
                     @Valid
-                    @NotNull(message = "Film cannot be empty.") Film film) throws JsonProcessingException;
+                    Film film) throws JsonProcessingException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
