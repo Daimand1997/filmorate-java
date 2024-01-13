@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
@@ -26,7 +25,6 @@ public class FilmServiceImpl implements FilmService {
     @Value("${app.defaultCountTopLikeFilms}")
     private String defaultCountTopLikeFilms;
 
-    @Autowired
     public FilmServiceImpl(InMemoryFilmStorageImpl inMemoryFilmStorage, InMemoryUserStorageImpl inMemoryUserStorage) {
         this.inMemoryFilmStorage = inMemoryFilmStorage;
         this.inMemoryUserStorage = inMemoryUserStorage;

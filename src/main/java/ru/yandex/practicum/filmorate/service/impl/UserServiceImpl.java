@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate.service.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.ResourceNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -14,15 +14,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
 
     private final InMemoryUserStorageImpl inMemoryUserStorage;
-
-    @Autowired
-    public UserServiceImpl(InMemoryUserStorageImpl inMemoryUserStorage) {
-        this.inMemoryUserStorage = inMemoryUserStorage;
-    }
 
     @Override
     public void addFriendById(Long idUser, Long idFriend) {
